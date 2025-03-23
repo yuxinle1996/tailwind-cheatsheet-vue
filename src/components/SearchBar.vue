@@ -1,6 +1,6 @@
 <template>
   <div
-    class="border-b theme-bg dark:border-gray-700 lg:fixed lg:w-full lg:top-0 lg:z-30 lg:left-0"
+    class="border-b theme-bg border-gray-200 dark:border-gray-700 lg:fixed lg:w-full lg:top-0 lg:z-30 lg:left-0"
   >
     <div class="container p-4 mx-auto">
       <div

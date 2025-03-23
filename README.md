@@ -1,5 +1,23 @@
-# Vue 3 + TypeScript + Vite
+# tailwind-cheatsheet-vue
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+JSON 数据来自[tailwind-cheatsheet](https://github.com/tailwindcomponents/cheatsheet)
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+<img src="src/assets/img/cheatsheet.png" alt="Ibis logo">
+
+## Project setup
+
+```
+pnpm dev
+```
+
+### Compiles and hot-reloads for development
+
+```
+pnpm start
+```
+
+### Compiles and minifies for production
+
+```
+pnpm build
+```
