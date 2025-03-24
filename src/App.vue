@@ -4,7 +4,7 @@
   >
     <SearchBar @search="search" />
     <Tagline />
-    <div class="w-full p-4 mx-auto mt-4 overflow-x-hidden">
+    <div class="w-full p-4 mx-auto mt-4 overflow-hidden">
       <wc-flow-layout :gap="16" :cols="cols">
         <Category v-for="item in data" :key="item.title" :category="item" />
       </wc-flow-layout>
