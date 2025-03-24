@@ -61,11 +61,19 @@ const { table } = defineProps<{
 }>();
 
 const copyText = async (text: string) => {
-  await copyTextToClipboard(text);
-  toastText.value = text;
-  showToast.value = true;
-  setTimeout(() => {
-    showToast.value = false;
-  }, 5000);
+  const result = await copyTextToClipboard(text);
+  if (result) {
+    toastText.value = text;
+    showToast.value = true;
+    setTimeout(() => {
+      showToast.value = false;
+    }, 3000);
+  } else {
+    toastText.value = "复制失败";
+    showToast.value = true;
+    setTimeout(() => {
+      showToast.value = false;
+    }, 3000);
+  }
 };
 </script>
