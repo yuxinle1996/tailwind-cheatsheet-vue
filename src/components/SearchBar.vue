@@ -69,13 +69,13 @@
         >
           <button
             class="px-4 py-2 text-sm text-gray-600 transition-colors duration-300 transform border rounded-lg dark:text-gray-200 dark:border-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none"
-            @click="emitter.emit('ui/expand')"
+            @click="emitter.emit('ui/expandAll')"
           >
             Expand <span class="lg:hidden xl:inline">All</span>
           </button>
           <button
             class="px-4 py-2 text-sm text-gray-600 transition-colors duration-300 transform border rounded-lg dark:text-gray-200 dark:border-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none"
-            @click="emitter.emit('ui/collapse')"
+            @click="emitter.emit('ui/collapseAll')"
           >
             Collapse <span class="lg:hidden xl:inline">All</span>
           </button>
@@ -112,9 +112,10 @@ import useTheme from "@/hooks/useTheme";
 
 const { isChecked } = useTheme();
 const emits = defineEmits(["search"]);
-const tailwindVersion = ref(
-  import.meta.env.VITE_TAILWIND_VERSION || "未知版本"
-);
+const { isInit } = defineProps<{
+  isInit: boolean;
+}>();
+const tailwindVersion = ref(import.meta.env.VITE_TAILWIND_VERSION || "unknown");
 const useSearchParams = () => {
   return new URLSearchParams(window.location.search);
 };
@@ -142,6 +143,7 @@ const handleFocus = (e: KeyboardEvent) => {
 
 // 输入内容少于5个字符时，延迟搜索
 watchEffect(() => {
+  if (!isInit) return;
   clearSearch();
   if (searchValue.value.length < 5) {
     searchTimer = window.setTimeout(() => {

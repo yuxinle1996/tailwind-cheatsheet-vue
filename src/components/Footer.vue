@@ -1,6 +1,6 @@
 <template>
   <footer class="mt-auto theme-bg">
-    <div class="container px-6 pt-10 mx-auto">
+    <div class="container px-6 mx-auto">
       <div class="flex flex-col items-center">
         <div class="flex gap-x-4 flex-wrap justify-center py-6 sm:w-2/3">
           <p class="text-sm text-gray-600 dark:text-gray-200">
@@ -14,9 +14,9 @@
               大咪
             </a>
           </p>
-          <p class="text-sm text-gray-600 dark:text-gray-200">
+          <p class="text-sm">
             <a
-              class="hover:underline"
+              class="text-gray-600 dark:text-gray-200 hover:underline"
               href="https://beian.miit.gov.cn/"
               target="_blank"
               rel="noopener noreferrer"

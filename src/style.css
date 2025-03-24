@@ -11,7 +11,7 @@
 
 /* 主题变量 */
 @theme {
-  --font-roboto: "Roboto", sans-serif;
+  /* --font-roboto: "Roboto", sans-serif; */
   --color-primary: #a684ff;
   --color-danger: #f56c6c;
 }
@@ -42,4 +42,8 @@
   .theme-bg {
     @apply bg-white dark:bg-gray-900;
   }
+}
+
+#nprogress .bar {
+  background-color: #a684ff !important;
 }

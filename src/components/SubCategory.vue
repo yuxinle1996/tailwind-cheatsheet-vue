@@ -1,36 +1,39 @@
 <template>
-  <div :class="{ hidden: shouldHide || !subcategory.table.length }">
-    <div
-      class="flex items-center px-3 py-2 text-gray-700 transition-colors duration-300 transform border-gray-300 cursor-pointer dark:hover:bg-gray-600 dark:text-gray-300 hover:bg-gray-200 hover:text-gray-900 dark:hover:text-gray-100"
-      @click="isVisible = !isVisible"
-    >
-      <h1 class="flex-1 text-sm tracking-wider">{{ subcategory.title }}</h1>
-      <a
-        class="px-2 py-1 text-xs font-bold text-white uppercase transition-colors duration-300 transform bg-gray-400 rounded-md dark:bg-gray-700 hover:bg-primary dark:hover:bg-primary"
-        :href="subcategory.docs"
-        target="_blank"
-        rel="noopener noreferrer"
-        @click.native.stop
+  <Transition
+    appear
+    name="animate__animated animate__bounce"
+    enter-active-class="animate__headShake"
+    leave-active-class="animate__headShake"
+  >
+    <div>
+      <div
+        class="flex items-center px-3 py-2 text-gray-700 transition-colors duration-300 transform border-gray-300 cursor-pointer dark:hover:bg-gray-600 dark:text-gray-300 hover:bg-gray-200 hover:text-gray-900 dark:hover:text-gray-100"
+        @click="isVisible = !isVisible"
       >
-        文档
-      </a>
-    </div>
-    <div
-      :class="[
-        'bg-gray-200 dark:bg-gray-700 px-4 overflow-hidden',
-        {
-          hidden: !isVisible,
-        },
-      ]"
-    >
-      <p
-        class="my-3 font-semibold leading-tight text-gray-800 dark:text-gray-200"
+        <h1 class="flex-1 text-sm tracking-wider">{{ subcategory.title }}</h1>
+        <a
+          class="px-2 py-1 text-xs font-bold text-white uppercase transition-colors duration-300 transform bg-gray-400 rounded-md dark:bg-gray-700 hover:bg-primary dark:hover:bg-primary"
+          :href="subcategory.docs"
+          target="_blank"
+          rel="noopener noreferrer"
+          @click.native.stop
+        >
+          文档
+        </a>
+      </div>
+      <div
+        class="bg-gray-200 dark:bg-gray-700 px-4 overflow-hidden"
+        v-if="isVisible"
       >
-        {{ subcategory.description }}
-      </p>
-      <InfoTable :table="subcategory.table" />
+        <p
+          class="my-3 font-semibold leading-tight text-gray-800 dark:text-gray-200"
+        >
+          {{ subcategory.description }}
+        </p>
+        <InfoTable :table="subcategory.table" />
+      </div>
     </div>
-  </div>
+  </Transition>
 </template>
 
 <script setup lang="ts">
@@ -38,9 +41,8 @@ import { onMounted, onBeforeUnmount, ref, watchEffect } from "vue";
 import InfoTable from "@/components/InfoTable.vue";
 import emitter from "@/utils/bus";
 
-const { subcategory, shouldHide } = defineProps<{
+const { subcategory } = defineProps<{
   subcategory: Subcategory;
-  shouldHide?: boolean;
 }>();
 const isVisible = ref(false);
 
@@ -52,16 +54,16 @@ watchEffect(() => {
 });
 
 onMounted(() => {
-  emitter.on("ui/expand", () => {
+  emitter.on("ui/expandAll", () => {
     isVisible.value = true;
   });
-  emitter.on("ui/collapse", () => {
+  emitter.on("ui/collapseAll", () => {
     isVisible.value = false;
   });
 });
 
 onBeforeUnmount(() => {
-  emitter.off("ui/expand");
-  emitter.off("ui/collapse");
+  emitter.off("ui/expandAll");
+  emitter.off("ui/collapseAll");
 });
 </script>

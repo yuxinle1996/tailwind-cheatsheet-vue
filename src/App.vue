@@ -1,13 +1,15 @@
 <template>
-  <div
-    class="tracking-wide font-roboto min-h-screen grid content-start theme-bg"
-  >
-    <SearchBar @search="search" />
+  <div class="flex flex-col tracking-wide font-roboto min-h-screen theme-bg">
+    <SearchBar @search="search" :isInit="isInit" />
     <Tagline />
-    <div class="w-full p-4 mx-auto mt-4 overflow-hidden">
-      <wc-flow-layout :gap="16" :cols="cols">
-        <Category v-for="item in data" :key="item.title" :category="item" />
-      </wc-flow-layout>
+    <div v-if="isInit" class="autoColumns my-5 px-2.5">
+      <template v-for="item in data" :key="item.title">
+        <Category :category="item" />
+      </template>
+    </div>
+    <div v-else class="py-5 flex-1 flex flex-col justify-center items-center">
+      <Globule />
+      <Loading />
     </div>
     <Footer />
   </div>
@@ -18,13 +20,19 @@ import SearchBar from "./components/SearchBar.vue";
 import Tagline from "./components/Tagline.vue";
 import Category from "./components/Category.vue";
 import Footer from "./components/Footer.vue";
-import "wc-flow-layout";
-import json from "@/assets/cheatsheet.json";
+import Loading from "./components/Loading.vue";
+import Globule from "./components/Globule.vue";
 import { onMounted, onUnmounted, ref } from "vue";
 import { throttle } from "@/utils/utils";
+import axios from "axios";
+import nprogress from "nprogress";
 
-const data = ref<Category[]>(json);
+nprogress.configure({ easing: "ease", speed: 300, showSpinner: false });
+
+let originJson: Category[] = [];
+const data = ref<Category[]>([]);
 const cols = ref(4);
+const isInit = ref(false);
 
 const search = (text: string) => {
   if (window.history?.pushState) {
@@ -32,7 +40,7 @@ const search = (text: string) => {
     const newUrl = `${origin}${pathname}${text ? `?q=${text}` : ""}`;
     window.history.pushState({ path: newUrl }, "", newUrl);
   }
-  let newCheatsheet = json.map((category: Category) => {
+  let newCheatsheet = originJson.map((category: Category) => {
     if (category.title.toLowerCase().includes(text)) {
       return category;
     } else {
@@ -81,9 +89,24 @@ const handleResize = () => {
   }
 };
 
+const getCheatsheet = async () => {
+  try {
+    nprogress.start();
+    const res = await axios.get(
+      "https://raw.githubusercontent.com/yuxinle1996/JsonApi/refs/heads/master/cheatsheet.json"
+    );
+    originJson = res.data;
+    isInit.value = true;
+  } catch {
+  } finally {
+    nprogress.done();
+  }
+};
+
 onMounted(() => {
   handleResize();
   window.addEventListener("resize", throttle(handleResize, 300));
+  getCheatsheet();
 });
 
 onUnmounted(() => {
@@ -91,4 +114,14 @@ onUnmounted(() => {
 });
 </script>
 
-<style></style>
+<style>
+@reference "tailwindcss";
+
+.autoColumns {
+  @apply grid auto-rows-[5px] items-start justify-between
+        grid-cols-[repeat(auto-fill,100%)]
+        xl:grid-cols-[repeat(auto-fill,calc(100%/4))]
+        lg:grid-cols-[repeat(auto-fill,calc(100%/3))]
+        md:grid-cols-[repeat(auto-fill,calc(100%/2))];
+}
+</style>
