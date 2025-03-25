@@ -2,8 +2,9 @@
   <Transition
     appear
     name="animate__animated animate__bounce"
-    enter-active-class="animate__headShake"
-    leave-active-class="animate__headShake"
+    :duration="{ enter: 500, leave: 0 }"
+    :enter-active-class="!isVisible ? 'animate__headShake' : ''"
+    :leave-active-class="!isVisible ? 'animate__headShake' : ''"
   >
     <div>
       <div
@@ -60,10 +61,5 @@ onMounted(() => {
   emitter.on("ui/collapseAll", () => {
     isVisible.value = false;
   });
-});
-
-onBeforeUnmount(() => {
-  emitter.off("ui/expandAll");
-  emitter.off("ui/collapseAll");
 });
 </script>
