@@ -7,7 +7,10 @@
         <Category :category="item" />
       </template>
     </div>
-    <div v-else class="py-5 flex-1 flex flex-col justify-center items-center">
+    <div
+      v-else
+      class="mt-8 py-5 flex-1 flex flex-col justify-center items-center"
+    >
       <Globule />
       <Loading />
     </div>
