@@ -13,12 +13,12 @@ import { ref, computed, onMounted, onUnmounted } from "vue";
 
 const {
   text,
-  charDuration = 100, // 改为单个字符的打字间隔时间
+  charDuration = 100,
   className = "",
   loop = true,
   typingDelay = 500,
   deletingDelay = 500,
-  deleteSpeed = 0.5, // 删除速度相对于打字速度的比例
+  deleteSpeed = 0.5,
 } = defineProps<{
   /** 要显示的文字，可以是字符串或字符串数组 */
   text: string | string[];

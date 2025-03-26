@@ -34,7 +34,6 @@ nprogress.configure({ easing: "ease", speed: 300, showSpinner: false });
 
 let originJson: Category[] = [];
 const data = ref<Category[]>([]);
-const cols = ref(4);
 const isInit = ref(false);
 
 const search = (text: string) => {
@@ -77,21 +76,6 @@ const search = (text: string) => {
   data.value = newCheatsheet;
 };
 
-const handleResize = () => {
-  const width = window.innerWidth;
-  if (width <= 640) {
-    cols.value = 1;
-  } else if (width <= 768) {
-    cols.value = 2;
-  } else if (width <= 1024) {
-    cols.value = 2;
-  } else if (width <= 1280) {
-    cols.value = 3;
-  } else {
-    cols.value = 4;
-  }
-};
-
 const getCheatsheet = async () => {
   try {
     nprogress.start();
@@ -107,13 +91,7 @@ const getCheatsheet = async () => {
 };
 
 onMounted(() => {
-  handleResize();
-  window.addEventListener("resize", throttle(handleResize, 300));
   getCheatsheet();
-});
-
-onUnmounted(() => {
-  window.removeEventListener("resize", handleResize);
 });
 </script>
 
