@@ -89,13 +89,20 @@
           <div class="flex items-center justify-center">
             <ToggleSwitch v-model="isChecked" />
           </div>
-          <a
-            class="flex items-center justify-center text-gray-700 transition-colors duration-300 transform dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:underline"
-            href="https://github.com/yuxinle1996"
-          >
-            <IconGithub />
-            <span class="sm:hidden text-sm ml-1">去逛逛大咪的github</span>
-          </a>
+          <div class="flex items-center justify-center">
+            <a
+              class="w-fit flex items-center text-gray-700 dark:text-gray-300 hover:text-primary"
+              href="https://github.com/yuxinle1996/tailwind-cheatsheet-vue"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <IconGithub />
+              <span
+                class="sm:hidden text-sm ml-1 duration-0 under-animation-[1px]"
+                >前往github仓库</span
+              >
+            </a>
+          </div>
         </div>
       </div>
     </div>

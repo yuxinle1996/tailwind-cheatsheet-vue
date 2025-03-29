@@ -9,14 +9,14 @@
               href="https://github.com/yuxinle1996"
               target="_blank"
               rel="noopener noreferrer"
-              class="text-primary hover:underline"
+              class="text-primary under-animation-[1px]"
             >
               大咪
             </a>
           </p>
           <p class="text-sm">
             <a
-              class="text-gray-600 dark:text-gray-200 hover:underline"
+              class="text-gray-600 dark:text-gray-200 hover:text-primary under-animation-[1px]"
               href="https://beian.miit.gov.cn/"
               target="_blank"
               rel="noopener noreferrer"

@@ -44,6 +44,10 @@
   }
 }
 
+@utility under-animation-* {
+  @apply inline-block relative after:absolute after:left-1/2 after:-bottom-px after:w-0 after:h-[--value([*])] after:bg-primary hover:after:w-full hover:after:left-0 after:transition-[width,left] after:duration-300 ease-in-out;
+}
+
 #nprogress .bar {
   background-color: #a684ff !important;
 }
